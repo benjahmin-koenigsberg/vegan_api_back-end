@@ -4,8 +4,8 @@ import cors from 'cors';
 import connectDb from './mongoDb/connect.js';
 import { v2 as cloudinary } from 'cloudinary';
 import veganMeme from './mongoDb/models/veganMeme.js';
-//import routes from './routes/routes.js'
-
+import routes from './routes/routes.js'
+const app = express();
 
 dotenv.config();
 
@@ -15,17 +15,28 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-const app = express();
-app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '50mb' }));
 
-//app.use('/api/v1', routes)
+app.use(cors({ origin: '*' }));
+app.use(express.json());
+
+app.use('/api/v1', routes)
 
 
 app.get('/', async (req, res) => {
     res.send('Hello from Vegan Meme API')
 })
 
+
+// get random
+
+// app.get('/api/v1/random', async (req, res) => {
+//     try {
+//         const meme = await veganMeme.aggregate([{$sample : {size: 1}} ])
+//         res.status(200).json({ success: true, data: meme });
+//     } catch (err) {
+//         res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
+//     }
+// });
 
 app.post('/api/v1/add', async (req, res) => {
     try {

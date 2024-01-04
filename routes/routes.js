@@ -14,28 +14,26 @@ router.get('/add' , (req, res) =>{
     res.send('Hello from add endpoint')
 })
 
-router.post('/add', async (req, res) => {
+//get all
+router.route('/all').get(async (req, res) => {
     try {
-
-        const { created_by,  meme_url, tags } = req.body;
-
-        const meme = await cloudinary.uploader.upload(meme_url, { folder: 'vegan_memes' });
-        console.log(`Successfully uploaded`);
-        console.log(`> Result: ${meme.secure_url}`);
-
-        const newVeganMeme = await veganMeme.create({
-            created_by,
-            date: new Date().toLocaleDateString(),
-            meme_url,
-            tags
-        });
-
-        res.status(200).json({ success: true, data: newVeganMeme });
-
+        const memes = await veganMeme.find({});
+        const randomMeme = memes[(Math.floor(Math.random() * arr.length))]
+        res.status(200).json({ success: true, data: memes });
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
+        res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
     }
 });
 
+
+//get random
+router.get('/random', async (req, res) => {
+    try {
+        const meme = await veganMeme.aggregate([{ $sample: { size: 1 } }])
+        res.status(200).json({ success: true, data: meme });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
+    }
+});
 
 export default router;
