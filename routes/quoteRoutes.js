@@ -13,5 +13,37 @@ router.route('/all').get(async (req, res) => {
     }
 });
 
+//get random
+router.route('/random').get(async (req, res) => {
+    const randomQuote = quotes[(Math.floor(Math.random() * quotes.length))]
+    try {
+        res.status(200).json({ success: true, data: randomQuote });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching quotes failed, please try again' });
+    }
+});
+
+
+//get all authors
+router.route('/authors').get(async (req, res) => {
+    const authors = quotes.map( (quote) => quote.author)
+    try {
+        res.status(200).json({ success: true, data: authors });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching quotes failed, please try again' });
+    }
+});
+
+//get by id
+router.get("/:author", async (req, res) => {
+    const author = req.params.author;
+    const specificQuotes = quotes.filter( (quote) => quote.author === author)
+    try {
+        res.status(200).json({ success: true, data: specificQuotes });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
+    }
+});
+
 
 export default router;
