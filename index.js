@@ -44,18 +44,16 @@ app.get('/', async (req, res) => {
 
 
 
-
-
 app.post('/api/v1/add' ,async (req, res, next) => {
     try {
-       const { created_by, tags, meme_url } = req.body;
+       const { created_by, tag, meme_url } = req.body;
        // const memeUrl = await cloudinary.uploader.upload(image);
         console.log(req.body)
 
         const newVeganMeme = await veganMeme.create({
             created_by,
             date: new Date().toLocaleDateString(),
-            tags,
+            tag,
             meme_url,
         });
 
@@ -68,31 +66,6 @@ app.post('/api/v1/add' ,async (req, res, next) => {
 })
 
 
-
-app.post('/api/v1/add', async (req, res) => {
-    console.log(req.body)
-     res.status(200).json({ success: true, data: req.body });
-
-    // try {
-    //    const { created_by, meme_url, tags } = req.body;
-    //     const meme = await cloudinary.uploader.upload(meme_url, { folder: 'vegan_memes' });
-    //     console.log(`Successfully uploaded`);
-    //     console.log(`> Result: ${meme.secure_url}`);
-
-
-    //     const newVeganMeme = await veganMeme.create({
-    //         created_by,
-    //         date: new Date().toLocaleDateString(),
-    //         meme_url,
-    //         tags
-    //     });
-
-    //     res.status(200).json({ success: true, data: req.body });
-
-    // } catch (err) {
-    //     res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
-    // }
-});
 
 
 const startServer = async () => {
