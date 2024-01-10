@@ -10,7 +10,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-router.get('/add' , (req, res) =>{
+router.get('/add', (req, res) => {
     res.send('Hello from add endpoint')
 })
 
@@ -18,11 +18,12 @@ router.get('/add' , (req, res) =>{
 router.route('/all').get(async (req, res) => {
     try {
         const memes = await veganMeme.find({});
-       // const randomMeme = memes[(Math.floor(Math.random() * arr.length))]
+        // const randomMeme = memes[(Math.floor(Math.random() * arr.length))]
         res.status(200).json({ success: true, data: memes });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
     }
+
 });
 
 
@@ -34,11 +35,12 @@ router.get('/random', async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching random meme failed, please try again' });
     }
+
+
 });
 
-
 //get by id
-router.get("/:id",  async (req, res) => {
+router.get("/id/:id", async (req, res) => {
     const id = req.params.id;
     try {
         const meme = await veganMeme.findById(id)
@@ -46,7 +48,41 @@ router.get("/:id",  async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
     }
+
+
 });
+
+
+// //get meme tags
+router.get("/tags", async (req, res) => {
+    console.log('tag endpoint hit')
+    try {
+        const tags = ['humor', 'excuses', 'carnism', 'speciesism', 'food', 'protein', 'cogntive dissonance', 'enviroment', 'health']
+        res.status(200).json({ success: true, data: tags });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
+    }
+
+
+});
+
+
+
+//get by tag
+router.get("/tags/:tag", async (req, res) => {
+    const tag = req.params.tag
+    try {
+        const memes = await veganMeme.find({})
+        const memesByTag = memes.filter((meme) => meme.tag === tag)
+        console.log(memesByTag)
+        res.status(200).json({ success: true, data: memesByTag });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching meme by tags failed, please try again' });
+    }
+
+});
+
+
 
 
 
