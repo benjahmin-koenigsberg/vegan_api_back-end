@@ -18,7 +18,7 @@ router.get('/add' , (req, res) =>{
 router.route('/all').get(async (req, res) => {
     try {
         const memes = await veganMeme.find({});
-        const randomMeme = memes[(Math.floor(Math.random() * arr.length))]
+       // const randomMeme = memes[(Math.floor(Math.random() * arr.length))]
         res.status(200).json({ success: true, data: memes });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
@@ -37,7 +37,7 @@ router.get('/random', async (req, res) => {
 });
 
 
-
+//get by id
 router.get("/:id",  async (req, res) => {
     const id = req.params.id;
     try {
@@ -47,5 +47,7 @@ router.get("/:id",  async (req, res) => {
         res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
     }
 });
+
+
 
 export default router;

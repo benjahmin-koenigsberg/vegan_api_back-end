@@ -4,8 +4,14 @@ import cors from 'cors';
 import connectDb from './mongoDb/connect.js';
 import { v2 as cloudinary } from 'cloudinary';
 import veganMeme from './mongoDb/models/veganMeme.js';
-import routes from './routes/routes.js'
+import quotesRoutes from './routes/quoteRoutes.js'
+import memeRoutes from './routes/memeRoutes.js'
 const app = express();
+import bodyParser from 'body-parser';
+import multer from 'multer'
+
+const upload = multer()
+
 
 dotenv.config();
 
@@ -17,9 +23,18 @@ cloudinary.config({
 
 
 app.use(cors({ origin: '*' }));
-app.use(express.json());
+app.use(express.json({limit: '50mb'}))
+//app.use(express.json())
+//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/v1', routes)
+//const urlencoded = bodyParser.urlencoded({extended: false})
+
+app.use(express.urlencoded({extended: true, limit: '50mb'}));
+
+app.use('/api/v1', memeRoutes)
+app.use('/api/v1/quotes', quotesRoutes)
+
 
 
 app.get('/', async (req, res) => {
@@ -27,31 +42,21 @@ app.get('/', async (req, res) => {
 })
 
 
-// get random
 
-// app.get('/api/v1/random', async (req, res) => {
-//     try {
-//         const meme = await veganMeme.aggregate([{$sample : {size: 1}} ])
-//         res.status(200).json({ success: true, data: meme });
-//     } catch (err) {
-//         res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
-//     }
-// });
 
-app.post('/api/v1/add', async (req, res) => {
+
+
+app.post('/api/v1/add' ,async (req, res, next) => {
     try {
-
-        const { created_by, meme_url, tags } = req.body;
-
-        const meme = await cloudinary.uploader.upload(meme_url, { folder: 'vegan_memes' });
-        console.log(`Successfully uploaded`);
-        console.log(`> Result: ${meme.secure_url}`);
+       const { created_by, tags, meme_url } = req.body;
+       // const memeUrl = await cloudinary.uploader.upload(image);
+        console.log(req.body)
 
         const newVeganMeme = await veganMeme.create({
             created_by,
             date: new Date().toLocaleDateString(),
+            tags,
             meme_url,
-            tags
         });
 
         res.status(200).json({ success: true, data: newVeganMeme });
@@ -59,6 +64,34 @@ app.post('/api/v1/add', async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
     }
+
+})
+
+
+
+app.post('/api/v1/add', async (req, res) => {
+    console.log(req.body)
+     res.status(200).json({ success: true, data: req.body });
+
+    // try {
+    //    const { created_by, meme_url, tags } = req.body;
+    //     const meme = await cloudinary.uploader.upload(meme_url, { folder: 'vegan_memes' });
+    //     console.log(`Successfully uploaded`);
+    //     console.log(`> Result: ${meme.secure_url}`);
+
+
+    //     const newVeganMeme = await veganMeme.create({
+    //         created_by,
+    //         date: new Date().toLocaleDateString(),
+    //         meme_url,
+    //         tags
+    //     });
+
+    //     res.status(200).json({ success: true, data: req.body });
+
+    // } catch (err) {
+    //     res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
+    // }
 });
 
 
