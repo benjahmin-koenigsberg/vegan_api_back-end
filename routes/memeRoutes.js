@@ -10,6 +10,21 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
+
+
+//get by id
+router.get("/id/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const meme = await veganMeme.findById(id)
+        res.status(200).json({ success: true, data: meme });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
+    }
+});
+
+
+
 router.get('/add', (req, res) => {
     res.send('Hello from add endpoint')
 })
@@ -39,18 +54,6 @@ router.get('/random', async (req, res) => {
 
 });
 
-//get by id
-router.get("/id/:id", async (req, res) => {
-    const id = req.params.id;
-    try {
-        const meme = await veganMeme.findById(id)
-        res.status(200).json({ success: true, data: meme });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
-    }
-
-
-});
 
 
 // //get meme tags
