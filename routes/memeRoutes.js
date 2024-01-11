@@ -50,9 +50,18 @@ router.get('/random', async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching random meme failed, please try again' });
     }
-
-
 });
+
+//get random
+router.get('/random/prev', async (req, res) => {
+    try {
+        const meme = await veganMeme.aggregate([{ $sample: { size: 1 } }])
+        res.status(200).json({ success: true, data: meme[0].meme_url });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching random meme failed, please try again' });
+    }
+});
+
 
 
 
