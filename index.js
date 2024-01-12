@@ -40,7 +40,8 @@ app.post('/api/v1/add', async (req, res) => {
             meme_url,
         });
 
-        console.log(newVeganMeme)
+        //console.log(newVeganMeme)
+
 
         res.status(200).json({ success: true, data: newVeganMeme });
 

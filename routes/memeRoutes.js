@@ -25,9 +25,10 @@ router.get("/id/:id", async (req, res) => {
 
 
 
-router.get('/add', (req, res) => {
-    res.send('Hello from add endpoint')
-})
+// router.get('/add', (req, res) => {
+//     res.send('Hello from add endpoint')
+// })
+
 
 //get all
 router.route('/all').get(async (req, res) => {
