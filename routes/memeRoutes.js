@@ -70,7 +70,19 @@ router.get('/random/prev', async (req, res) => {
 router.get("/tags", async (req, res) => {
     console.log('tag endpoint hit')
     try {
-        const tags = ['humor', 'excuses', 'carnism', 'speciesism', 'food', 'protein', 'cogntive dissonance', 'enviroment', 'health']
+        const tags = ['humor',
+            'cognitive dissonance',
+            'denial',
+            'protein',
+            'excuses',
+            'speciesism',
+            'ignorance',
+            'health',
+            'enviroment',
+            'food',
+            'social',
+            'carnism',
+            'serious']
         res.status(200).json({ success: true, data: tags });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching meme by Id failed, please try again' });
