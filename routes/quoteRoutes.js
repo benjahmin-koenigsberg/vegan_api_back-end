@@ -5,8 +5,6 @@ const router = express.Router();
 
 
 
-
-
 //get all
 router.route('/all').get(async (req, res) => {
     try {
