@@ -36,8 +36,22 @@ router.route('/authors').get(async (req, res) => {
     }
 });
 
+
+
+//get by id
+router.route("/id/:id").get(async (req, res) => {
+    const id = req.params.id
+    const specificQuote = quotes[id]
+    try {
+        res.status(200).json({ success: true, data: specificQuote });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Fetching quote by Id failed, please try again' });
+    }
+});
+
+
 //get by author
-router.route("/authors/:author").get(async (req, res) => {
+router.route("/:author").get(async (req, res) => {
     const author = req.params.author
     const specificQuotes = quotes.filter((quote) => quote.author === author)
     try {
@@ -47,14 +61,4 @@ router.route("/authors/:author").get(async (req, res) => {
     }
 });
 
-//get by id
-router.route("/:id").get(async (req, res) => {
-    const id = req.params.id
-    const specificQuote = quotes[id]
-    try {
-        res.status(200).json({ success: true, data: specificQuote });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'Fetching quote by Id failed, please try again' });
-    }
-});
 export default router;
