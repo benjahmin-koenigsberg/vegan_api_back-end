@@ -1,5 +1,6 @@
 import express from 'express'
 import quotes from '../assets/quotes.js'
+import { authorOptions } from '../assets/quotes.js';
 
 const router = express.Router();
 
@@ -28,9 +29,9 @@ router.route('/random').get(async (req, res) => {
 
 //get all authors
 router.route('/authors').get(async (req, res) => {
-    const authors = quotes.map( (quote) => quote.author).sort()
+    // const authors = quotes.map( (quote) => quote.author).sort()
     try {
-        res.status(200).json({ success: true, data: authors });
+        res.status(200).json({ success: true, data: authorOptions });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching quotes failed, please try again' });
     }

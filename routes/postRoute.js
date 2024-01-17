@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/add', async (req, res) => {
     try {
-        const { created_by, tag, meme_url, file_name } = req.body;
+        const { created_by, tag, meme_url, file_name, type, asset_id, height, width } = req.body;
 
         const newVeganMeme = await veganMeme.create({
             created_by,
@@ -14,6 +14,10 @@ router.post('/add', async (req, res) => {
             tag,
             meme_url,
             file_name,
+            type,
+            asset_id,
+            height,
+            width,
         });
 
         //console.log(newVeganMeme)

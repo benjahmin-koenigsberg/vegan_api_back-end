@@ -27,31 +27,6 @@ app.use('/api/v1/quotes', quotesRoutes)
 app.use('/api/v1/meme', postRoute)
 
 
-// app.get('/', async (req, res) => {
-//     res.send('Hello from Vegan Meme API')
-// })
-
-// app.post('/api/v1/meme/add', async (req, res) => {
-//     try {
-//        const { created_by, tag, meme_url } = req.body;
-
-//         const newVeganMeme = await veganMeme.create({
-//             created_by,
-//             date: new Date().toLocaleDateString(),
-//             tag,
-//             meme_url,
-//         });
-
-//         //console.log(newVeganMeme)
-
-
-//         res.status(200).json({ success: true, data: newVeganMeme });
-
-//     } catch (err) {
-//         res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
-//     }
-// })
-
 
 
 const startServer = async () => {
