@@ -33,7 +33,7 @@ router.get("/id/:id", async (req, res) => {
 //get all
 router.route('/all').get(async (req, res) => {
     try {
-        const memes = await veganMeme.find({});
+        const memes = await veganMeme.find({}).sort({ _id: -1 })
         res.status(200).json({ success: true, data: memes });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Fetching memes failed, please try again' });
