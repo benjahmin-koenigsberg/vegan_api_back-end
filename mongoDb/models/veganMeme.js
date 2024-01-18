@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const veganMeme = new mongoose.Schema({
-    asset_id: {type: String, required: false},
+    etag: {type: String, required: false},
     created_by: { type: String, required: false },
     date: { type: String, required: false },
     meme_url: { type: String, required: false },
@@ -10,7 +10,6 @@ const veganMeme = new mongoose.Schema({
     width: {type: Number, required: false},
     height: {type: Number, required: false},
     format: {type: String, required: false}
-
 });
 
 const veganMemeSchema = mongoose.model('veganMeme', veganMeme);
