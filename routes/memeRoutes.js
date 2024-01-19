@@ -11,7 +11,6 @@ cloudinary.config({
 })
 
 
-
 //get by id
 router.get("/id/:id", async (req, res) => {
     const id = req.params.id;
@@ -24,10 +23,6 @@ router.get("/id/:id", async (req, res) => {
 });
 
 
-
-// router.get('/add', (req, res) => {
-//     res.send('Hello from add endpoint')
-// })
 
 
 //get all
@@ -55,7 +50,7 @@ router.get('/random', async (req, res) => {
 //get random
 router.get('/random/prev', async (req, res) => {
     try {
-        const meme = await veganMeme.aggregate([{ $sample: { size: 1 } }])
+       // const meme = await veganMeme.aggregate([{ $sample: { size: 1 } }])
         const memes = await veganMeme.find({});
         const randomMeme = memes[(Math.floor(Math.random() * memes.length))]
 
@@ -71,7 +66,7 @@ router.get('/random/prev', async (req, res) => {
 
 
 // //get meme tags
-router.get("/tags", async (req, res) => {
+router.get("/tags", (req, res) => {
     console.log('tag endpoint hit')
     try {
         const tags = ['humor',

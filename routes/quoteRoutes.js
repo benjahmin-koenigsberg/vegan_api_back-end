@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 //get all
-router.route('/all').get(async (req, res) => {
+router.route('/all').get( (req, res) => {
     try {
         res.status(200).json({ success: true, data: quotes });
     } catch (err) {
@@ -16,7 +16,7 @@ router.route('/all').get(async (req, res) => {
 });
 
 //get random
-router.route('/random').get(async (req, res) => {
+router.route('/random').get( (req, res) => {
     const randomQuote = quotes[(Math.floor(Math.random() * quotes.length))]
     try {
         res.status(200).json({ success: true, data: randomQuote });
@@ -28,7 +28,7 @@ router.route('/random').get(async (req, res) => {
 
 
 //get all authors
-router.route('/authors').get(async (req, res) => {
+router.route('/authors').get( (req, res) => {
     // const authors = quotes.map( (quote) => quote.author).sort()
     try {
         res.status(200).json({ success: true, data: authorOptions });
@@ -40,7 +40,7 @@ router.route('/authors').get(async (req, res) => {
 
 
 //get by id
-router.route("/id/:id").get(async (req, res) => {
+router.route("/id/:id").get( (req, res) => {
     const id = req.params.id
     const specificQuote = quotes[id]
     try {
@@ -52,7 +52,7 @@ router.route("/id/:id").get(async (req, res) => {
 
 
 //get by author
-router.route("/:author").get(async (req, res) => {
+router.route("/:author").get( (req, res) => {
     const author = req.params.author
     const specificQuotes = quotes.filter((quote) => quote.author === author)
     try {

@@ -13,7 +13,5 @@ const veganMeme = new mongoose.Schema({
 });
 
 const veganMemeSchema = mongoose.model('veganMeme', veganMeme);
-// const veganMemeSchema = mongoose.model('user_uploads', veganMeme);
-
 
 export default veganMemeSchema;

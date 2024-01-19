@@ -1,6 +1,8 @@
 import express from 'express'
 import veganMeme from '../mongoDb/models/veganMeme.js';
-import user_uploads from '../mongoDb/models/user_uploads.js';
+import user_uploads from '../mongoDb/models/user_uploads.js'
+import emailjs from '@emailjs/browser';
+;
 
 const router = express.Router();
 
@@ -43,7 +45,23 @@ router.post('/add', async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
     }
+
 })
+
+
+const handleEmail = () =>{
+
+    emailjs
+        .send(
+          
+    ).then(function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+    }, function (error) {
+        console.log('FAILED...', error);
+    });
+
+
+}
 
 
 export default router;
