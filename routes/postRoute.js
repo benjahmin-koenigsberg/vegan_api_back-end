@@ -1,8 +1,7 @@
 import express from 'express'
 import veganMeme from '../mongoDb/models/veganMeme.js';
 import user_uploads from '../mongoDb/models/user_uploads.js'
-import emailjs from '@emailjs/browser';
-;
+
 
 const router = express.Router();
 
@@ -49,19 +48,7 @@ router.post('/add', async (req, res) => {
 })
 
 
-const handleEmail = () =>{
-
-    emailjs
-        .send(
-          
-    ).then(function (response) {
-        console.log('SUCCESS!', response.status, response.text);
-    }, function (error) {
-        console.log('FAILED...', error);
-    });
-
-
-}
+const handleEmail = () =>{}
 
 
 export default router;
