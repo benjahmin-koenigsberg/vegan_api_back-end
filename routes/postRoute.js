@@ -10,18 +10,6 @@ router.post('/add', async (req, res) => {
     try {
         const { created_by, tag, meme_url, file_name, type, etag, height, width } = req.body;
 
-        // const newVeganMeme = await veganMeme.create({
-        //     created_by,
-        //     date: new Date().toLocaleDateString(),
-        //     tag,
-        //     meme_url,
-        //     file_name,
-        //     type,
-        //     etag,
-        //     height,
-        //     width,
-        // });
-
         const newUserUpload = await user_uploads.create({
             created_by,
             date: new Date().toLocaleDateString(),
@@ -34,10 +22,6 @@ router.post('/add', async (req, res) => {
             width,
         });
 
-
-        //console.log(newVeganMeme)
-
-        // res.status(200).json({ success: true, data: newVeganMeme });
         res.status(200).json({ success: true, data: newUserUpload });
 
 
