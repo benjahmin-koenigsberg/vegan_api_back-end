@@ -50,11 +50,8 @@ router.get('/random', async (req, res) => {
 //get random
 router.get('/random/prev', async (req, res) => {
     try {
-       // const meme = await veganMeme.aggregate([{ $sample: { size: 1 } }])
         const memes = await veganMeme.find({});
         const randomMeme = memes[(Math.floor(Math.random() * memes.length))]
-        // res.status(200).json({ success: true, data: meme[0].meme_url });
-        // res.status(200).json({ success: true, data: randomMeme.meme_url });
         res.status(200).json({ success: true, data: randomMeme });
 
 
@@ -66,7 +63,7 @@ router.get('/random/prev', async (req, res) => {
 
 
 
-// //get meme tags
+//get meme tags
 router.get("/tags", (req, res) => {
     console.log('tag endpoint hit')
     try {

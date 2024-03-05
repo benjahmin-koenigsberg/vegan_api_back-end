@@ -12,7 +12,6 @@ const user_uploads = new mongoose.Schema({
     format: { type: String, required: false }
 });
 
-//const user_uploads = mongoose.model('veganMeme', veganMeme);
 const user_uploadSchema = mongoose.model('user_uploads', user_uploads);
 
 

@@ -29,7 +29,6 @@ router.route('/random').get( (req, res) => {
 
 //get all authors
 router.route('/authors').get( (req, res) => {
-    // const authors = quotes.map( (quote) => quote.author).sort()
     try {
         res.status(200).json({ success: true, data: authorOptions });
     } catch (err) {

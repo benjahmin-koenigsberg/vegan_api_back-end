@@ -49,8 +49,6 @@ router.post('/ben/add', async (req, res) => {
             width,
         });
 
-        //console.log(newVeganMeme)
-
         res.status(200).json({ success: true, data: newVeganMeme });
 
 
